@@ -63,7 +63,7 @@ def merger(page):
         result.append(item)
     return result
 
-def foreign_investevents(page):
+def foreignInvestevents(page):
     html=requests.get('https://www.itjuzi.com/investevents/foreign?page=%s'%page,headers=headers,timeout=50).text
     result=[]
     table=BeautifulSoup(html,'html.parser').find_all('ul',attrs={'class':'list-main-eventset'})[1].find_all('li')
@@ -89,7 +89,7 @@ def foreign_investevents(page):
         result.append(item)
     return result
 
-def foreign_merger(page):
+def foreignMerger(page):
     html=requests.get('https://www.itjuzi.com/merger/foreign?page=%s'%page,headers=headers,timeout=50).text
     result=[]
     table=BeautifulSoup(html,'html.parser').find_all('ul',attrs={'class':'list-main-eventset'})[1].find_all('li')

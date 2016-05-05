@@ -1,4 +1,5 @@
 from spider.anjuke import *
+from spider.dianping import *
 
-result=newhourse('http://bj.fang.anjuke.com/?from=navigation')
+result=dpindex()
 print(result)
