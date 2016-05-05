@@ -37,3 +37,40 @@ def dpindex(cityId=1,page=1):
         shop['index']=item.find('div',attrs={'class':'field-index'}).get_text()
         result.append(shop)
     return result
+
+def restaurantList(url):
+    html=requests.get(url,headers=headers,timeout=30).text.replace('\r','').replace('\n','')
+    table=BeautifulSoup(html,'lxml').find('div',id='shop-all-list').find_all('li')
+    result=[]
+    for item in table:
+        shop={}
+        soup=item.find('div',attrs={'class':'txt'})
+        tit=soup.find('div',attrs={'class':'tit'})
+        comment=soup.find('div',attrs={'class':'comment'})
+        tag_addr=soup.find('div',attrs={'class':'tag-addr'})
+        shop['name']=tit.find('a').get_text()
+        shop['star']=comment.find('span').get('title')
+        shop['review-num']=comment.find('a',attrs={'class':'review-num'}).get_text().replace('条点评','')
+        shop['mean-price']=comment.find('a',attrs={'class':'mean-price'}).get_text()
+        shop['type']=tag_addr.find('span',attrs={'class':'tag'}).get_text()
+        shop['addr']=tag_addr.find('span',attrs={'class':'addr'}).get_text()
+        try:
+            comment_list=soup.find('span',attrs={'class':'comment-list'}).find_all('span')
+        except:
+            comment_list=[]
+        score=[]
+        for i in comment_list:
+            score.append(i.get_text())
+        shop['score']=score
+        tags=[]
+        try:
+            for i in tit.find('div',attrs={'class':'promo-icon'}).find_all('a'):
+                try:
+                    tags+=i.get('class')
+                except:
+                    tags.append(i.get('class')[0])
+        except:
+            pass
+        shop['tags']=tags
+        result.append(shop)
+    return result
