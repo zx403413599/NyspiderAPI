@@ -15,7 +15,8 @@ foreign_mergerdata=foreign_merger(page=1)#国外并购信息
 ```python
 from spider.lagou import *
 
-jobs=lagouJobs(page=1,keyword='')
+jobs=lagouJobs(page=1,keyword='')#拉勾网职位信息
+
 ```
 
 #####3.猫眼电影
@@ -36,6 +37,6 @@ from spider.renrendai import *
 username='Your username'
 passwd='xxx'#加密后的密码
 work=Renrendai(username,passwd)
-loaninfor=work.getLoan(loanid=80000)
+loaninfor=work.getLoan(loanid=80000)#获取散标数据
 
 ```
